@@ -1,13 +1,15 @@
 const http = require('http');
 const serverConfig = require('./config.json').servers;
 
-const createBackendServers = (host, port) => {
+const createBackendServers = (host, port, timeout) => {
     http.createServer((req, res) => {
-        res.writeHead(200);
-        res.end(`Server response from port : ${port}`)
+        setTimeout(() => {
+            res.writeHead(200);
+            res.end(`Server response from port : ${port}`)
+        }, timeout)
     }).listen(port, host, () => {
         console.log(`Server is running at http://${host}:${port}`);
     })
 }
 
-serverConfig.forEach(server => createBackendServers(server.host, server.port));
+serverConfig.forEach(server => createBackendServers(server.host, server.port, server.timeout));

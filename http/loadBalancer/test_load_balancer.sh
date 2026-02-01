@@ -4,12 +4,16 @@
 REQUESTS=10
 
 # URL of your load balancer
-URL="http://localhost:3000"
+URL="http://127.0.0.1:3000"
 
-#Loop to send requests
-for((i=1; i<=REQUESTS; i++)); do
-    curl $URL &
+for ((i=1; i<=REQUESTS; i++)); do
+    curl -s $URL >/dev/null &
+    sleep 0.05
 done
 
 wait
 echo "Sent $REQUESTS requests to the load balancer at $URL"
+
+
+# wait
+# echo "Sent $REQUESTS requests to the load balancer at $URL"
